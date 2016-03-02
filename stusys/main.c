@@ -3,7 +3,12 @@
 #include <windows.h>
 #include <string.h>
 
+
 //bye
+
+//hello
+
+
 void aboutUs();
 
 void myexit();   //自定义的退出函数
