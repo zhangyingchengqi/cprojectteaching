@@ -4,18 +4,17 @@
 #include <string.h>
 
 
-//bye
-
-//hello
-
-
 void aboutUs();
 
 void myexit();   //自定义的退出函数
 
 void login();    //登录
 
+void showMainMenu();   //显示主菜单
+
 //声明全局变量，用来存标准用户名和密码. 
+//使用字符指针指向了一个字符串
+//  char *指针名="字符串值";
 char *realusername="12345678";
 char *realpassword="aaaaaaaa";
 
@@ -36,7 +35,7 @@ int main(){
 		printf("\t3.关机\n");
 		printf("**********************************************\n");
 		printf("请输入您的选项(1,2,3):\n");
-		scanf("%d",&choice);
+		scanf("%d",&choice);     // 1回车
 		//作业: 
 		//清屏
 		//   判断:   if()   if()...esle if()     switch()
@@ -57,6 +56,49 @@ int main(){
 	}while(  1   );
 }
 
+//显示主菜单
+void showMainMenu(){
+	int choice=0;
+	do{
+		system("cls");
+		printf("**********************************************\n");
+		printf("\t成绩管理系统\n");
+		printf("\t1.录入学生成绩信息\n");
+		printf("\t2.显示所有学生信息\n");
+		printf("\t3.按平均成绩降序显示学生信息\n");
+		printf("\t4.返回上一级\n");
+		printf("**********************************************\n");
+		printf("请输入您的选项(1,2,3,4):\n");
+		scanf("%d",&choice);     // 1回车
+		switch( choice){
+				case 1:
+					printf("*******开始录入学生信息********");
+					getch();
+					break;
+				case 2:
+					printf("*******显示所有学生信息********");
+					getch();
+					break;
+				case 3:
+					printf("*******按平均成绩降序显示学生信息********");
+					getch();
+					break;
+			
+				
+		}
+		if( choice==4){
+			printf("*******返回上一级********\n");
+			getch();
+			system("cls");
+			break;
+		}
+	}while(1);
+}
+
+
+
+
+
 void login(){
 	//只能最多三次输入用户名及密码，多于三次，则关闭程序. 
 	int i;
@@ -67,15 +109,20 @@ void login(){
 		fflush(stdin);   //清空缓冲区
 		//输入用户名    -》输入字符串
 		printf("请输入用户名:");
-		gets( username);
+		gets(    username );   //  以回车当成一个字符串的结束
 		//输入密码
 		printf("请输入密码:");
 		gets( password);
 		//判断输入的用户名和密码是否与标准的一样      strcom()  
-		if( strcmp( username, realusername)==0   &&   strcmp( password,realpassword)==0   ){
+		if( strcmp( username, realusername)==0  &&   strcmp( password,realpassword)==0  ){   // 0&&0          0->false
 			//    如相同，则显示登录成功
-			printf("登录成功，欢迎您归来\n");
+			printf("登录成功，欢迎您归来,按任意键继续...\n");
 			getch();
+			system("cls");
+
+			showMainMenu();
+
+
 		}else{
 			//    如不相同， 则显示"用户名或密码错误，你还n次机会..
 			printf("用户名或密码错误,您还有%d次输入机会...且行且珍惜\n", (3-i) );
@@ -83,7 +130,7 @@ void login(){
 			getch();
 		}	
 	}
-	if( i>3){   // 
+	if( i>3 ){   // 
 		//非法用户， 
 		printf("\n已经输入了三次，系统为了安全，自动关机...\n");
 		myexit();
