@@ -5,19 +5,14 @@
 
 //定义数组的长度
 #define NUM 5
-
-
 void aboutUs();
-
 void myexit();   //自定义的退出函数
-
 void login();    //登录
-
 void showMainMenu();   //显示主菜单
-
 void record();    //录入学生信息
-
 void show();  //显示所有学生信息
+void showC();  //按C语言成绩降序排序显示
+void showTotal();  //按总成绩降序显示
 
 //声明全局变量，用来存标准用户名和密码. 
 //使用字符指针指向了一个字符串
@@ -76,6 +71,43 @@ int main(){
 				getch();
 		}
 	}while(  1   );
+}
+
+void showC(){
+	int i,j;
+	struct Student t;
+	system("cls");
+	printf("***********************按学ba学渣的C语言成绩排序显示******************\n");
+	for( i=0;i<stuNum-1;i++){
+		for( j=0;j<stuNum-i-1;j++){
+			if( students[j].c<students[j+1].c ){
+				t=students[j];
+				students[j]=students[j+1];
+				students[j+1]=t;
+			}
+		}
+	}
+	show();
+}
+
+void showTotal(){
+	int i,j;
+	struct Student t;
+	int totalone, totaltwo;
+	system("cls");
+	printf("***********************按学ba学渣的总成绩排序显示******************\n");
+	for( i=0;i<stuNum-1;i++){
+		for( j=0;j<stuNum-i-1;j++){
+			totalone=students[j].c+students[j].math+students[j].physics;
+			totaltwo=students[j+1].c+students[j+1].math+students[j+1].physics;
+			if( totalone<totaltwo ){
+				t=students[j];
+				students[j]=students[j+1];
+				students[j+1]=t;
+			}
+		}
+	}
+	show();
 }
 
 //显示所有学生信息
@@ -141,8 +173,9 @@ void showMainMenu(){
 		printf("\t成绩管理系统\n");
 		printf("\t1.录入学生成绩信息\n");
 		printf("\t2.显示所有学生信息\n");
-		printf("\t3.按平均成绩降序显示学生信息\n");
-		printf("\t4.返回上一级\n");
+		printf("\t3.按C语言成绩降序显示学生信息\n");
+		printf("\t4.按总成绩降序显示学生信息\n");
+		printf("\t5.返回上一级\n");
 		printf("**********************************************\n");
 		printf("请输入您的选项(1,2,3,4):\n");
 		scanf("%d",&choice);     // 1回车
@@ -158,11 +191,17 @@ void showMainMenu(){
 					show();
 					break;
 				case 3:
-					printf("*******按平均成绩降序显示学生信息********");
+					printf("*******按C语言成绩降序显示学生信息********");
 					getch();
-					break;		
+					showC();
+					break;
+				case 4:
+					printf("*******按总成绩降序显示学生信息********");
+					getch();
+					showTotal();
+					break;	
 		}
-		if( choice==4){
+		if( choice==5){
 			printf("*******返回上一级********\n");
 			getch();
 			system("cls");
